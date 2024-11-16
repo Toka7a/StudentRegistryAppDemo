@@ -1,10 +1,6 @@
 pipeline{
-    environment{
-        node_Version = '18.x'
-    }
-    tools{
-        nodejs "${node_Version}"
-    }
+    agent any
+    
     stages{
         stage('Checkout'){
             steps{
@@ -20,11 +16,17 @@ pipeline{
                 }
             }
         }
-        stage("Start application and run tests"){
+        stage("Start application"){
             steps{
                 script{
-                    bat 'npm start &'
-                    bat 'wait on http://localhost:8090'
+                    bat 'start /b npm start'
+                    
+                }
+            }
+        }
+        stage("Run tests"){
+            steps{
+                script{
                     bat 'npm test'
                 }
             }
