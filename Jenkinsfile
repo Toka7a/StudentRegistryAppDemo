@@ -6,18 +6,17 @@ pipeline{
         nodejs "${node_Version}"
     }
     stages{
-        steps('Checkout'){
-            checkout scm
+        stage('Checkout'){
+            steps{
+                git branch: 'main' , url: 'https://github.com/Toka7a/StudentRegistryAppDemo'
+            }
         }
         stage("install dependencies"){
             steps{
                 script{
-                    if(isUnix()){
-                        sh 'npm install'
-                    }
-                    else{
-                        sh 'npm install'
-                    }
+                   
+                    bat 'npm install'
+                    
                 }
             }
         }
